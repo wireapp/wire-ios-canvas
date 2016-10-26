@@ -33,13 +33,16 @@ protocol Renderable : class {
     
 }
 
-protocol Draggable : Renderable {
+protocol Editable : Renderable {
     
+    var selected : Bool { get set }
+    var selectable : Bool { get }
     var transform : CGAffineTransform { get }
     var size : CGSize  { get }
     var scale : CGFloat { get set }
     var position : CGPoint { get set }
     var rotation : CGFloat { get set }
+    
 }
 
 struct Orientation {
@@ -55,7 +58,18 @@ struct Orientation {
     }
 }
 
+public protocol CanvasDelegate {
+    
+    func canvasDidChange(_ canvas : Canvas)
+    
+}
+
 public class Canvas: UIView {
+    
+    fileprivate let minimumScale : CGFloat = 0.5
+    fileprivate let maximumScale : CGFloat = 3.0
+    
+    public var delegate : CanvasDelegate? = nil
     
     /// Defines the apperance of the brush strokes when drawing
     public var brush = Brush(size: 2, color: .black)
@@ -63,21 +77,32 @@ public class Canvas: UIView {
     /// Active mode of the canvas. See `EditingMode` for possible values.
     public var mode : EditingMode = .draw {
         didSet {
+            selection = nil
             gestureRecognizers?.forEach({ $0.isEnabled = mode == .edit })
+            setNeedsDisplay()
         }
     }
     
     /// An image on which you can draw on top.
     public var referenceImage : UIImage? {
+        
         didSet {
-            if let referenceImage = referenceImage {
-                let image = Image(image: referenceImage, at: CGPoint.zero)
+            if let referenceImage = referenceImage, let cgImage = referenceImage.cgImage {
+                let retinaImage = UIImage(cgImage: cgImage, scale: 2, orientation: referenceImage.imageOrientation)
+                let image = Image(image: retinaImage, at: CGPoint.zero)
                 image.sizeToFit(inRect: bounds)
+                image.selectable = false
                 scene = [image]
                 referenceObject = image
+                delegate?.canvasDidChange(self)
                 setNeedsDisplay()
             }
         }
+    }
+    
+    /// hasChanges is true if the canvas has changes which can be un done. See undo()
+    public var hasChanges : Bool {
+        return sceneExcludingReferenceObject.count > 0
     }
     
     private var scene : [Renderable] = []
@@ -86,7 +111,16 @@ public class Canvas: UIView {
     private var referenceObject : Image?
     private var flattenIndex : Int = 0
     
-    fileprivate var selection : Draggable?
+    fileprivate var sceneExcludingReferenceObject : [Renderable] {
+        return scene.filter({ $0 !== referenceObject })
+    }
+    
+    fileprivate var selection : Editable? {
+        didSet {
+            oldValue?.selected = false
+            selection?.selected = true
+        }
+    }
     fileprivate var initialOrienation : Orientation = Orientation.standard
     
     override public init(frame: CGRect) {
@@ -127,16 +161,18 @@ public class Canvas: UIView {
         scene.append(image)
         selection = image
         setNeedsDisplay()
+        delegate?.canvasDidChange(self)
     }
     
     func insert(brush: Brush, at position: CGPoint) -> Stroke {
         let stroke = Stroke(at: position, brush: brush)
         scene.append(stroke)
+        delegate?.canvasDidChange(self)
         return stroke
     }
     
     public func undo() {
-        guard !scene.isEmpty else { return }
+        guard !sceneExcludingReferenceObject.isEmpty else { return }
         
         if flattenIndex == scene.count {
             bufferImage = nil
@@ -145,47 +181,34 @@ public class Canvas: UIView {
         
         scene.removeLast()
         setNeedsDisplay()
+        delegate?.canvasDidChange(self)
     }
     
-    @discardableResult fileprivate func selectObject(at position: CGPoint) -> Draggable? {
+    @discardableResult fileprivate func selectObject(at position: CGPoint) -> Editable? {
         let previousSelection = selection
         
         selection = pickObject(at: position)
         
-        guard let object = selection, selection === previousSelection else {
+        setNeedsDisplay()
+        
+        guard let newSelection = selection, selection !== previousSelection else {
             return selection
         }
         
         // move object to top
-        if let index = scene.index(where: { $0 === object }) {
+        if let index = scene.index(where: { $0 === newSelection }) {
             scene.remove(at: index)
-            scene.append(object)
+            scene.append(newSelection)
             flattenIndex = 0
             bufferImage = nil
         }
         
-        setNeedsDisplay()
-        
         return selection
     }
     
-    private func pickObject(at position: CGPoint) -> Draggable? {
-        // TODO redo
-        let draggables = scene.filter({ renderable in
-            if (renderable as? Draggable) != nil {
-                return true
-            } else {
-                return false
-            }
-        })
-        
-        for draggable in draggables.reversed() {
-            if draggable.bounds.contains(position) {
-                return draggable as? Draggable
-            }
-        }
-        
-        return nil
+    private func pickObject(at position: CGPoint) -> Editable? {
+        let editables = scene.flatMap({ $0 as? Editable })
+        return editables.reversed().first(where: { $0.selectable && $0.bounds.contains(position) })
     }
     
     private func flatten() {
@@ -224,6 +247,10 @@ public class Canvas: UIView {
         get{
             let scaleFactor : CGFloat = 2.0 // We want to render with 2x scale factor also on non-retina devices
             var image : UIImage? = nil
+            selection?.selected = false
+            defer {
+                selection?.selected = true
+            }
             
             if let referenceObject = referenceObject {
 
@@ -248,9 +275,8 @@ public class Canvas: UIView {
                 image =  UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
             } else {
-                let drawBounds = self.drawBounds
-
-                
+                let drawBounds = self.drawBounds.integral
+ 
                 UIGraphicsBeginImageContextWithOptions(drawBounds.size, true, scaleFactor)
                 
                 if let context = UIGraphicsGetCurrentContext() {
@@ -357,7 +383,7 @@ extension Canvas : UIGestureRecognizerDelegate {
             case .began:
                 initialOrienation.scale = selection.scale
             case .changed:
-                selection.scale = initialOrienation.scale * gestureRecognizer.scale
+                selection.scale = min(max(initialOrienation.scale * gestureRecognizer.scale, minimumScale), maximumScale)
                 setNeedsDisplay()
             default:
                 break

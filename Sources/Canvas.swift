@@ -256,16 +256,17 @@ public class Canvas: UIView {
 
                 let drawBounds = self.drawBounds
                 let renderScale = 1 / referenceObject.scale // We want to match resolution of the image we are drawing upon on
-                let renderSize = drawBounds.size.applying(CGAffineTransform(scaleX: renderScale, y: renderScale))
+                let renderSize = drawBounds.size.applying(CGAffineTransform(scaleX: renderScale * scaleFactor, y: renderScale * scaleFactor))
+                let renderBounds = CGRect(origin: CGPoint.zero, size: renderSize).integral.applying(CGAffineTransform(scaleX: 1 / scaleFactor, y: 1 / scaleFactor))
                 
-                UIGraphicsBeginImageContextWithOptions(renderSize, true, scaleFactor)
+                UIGraphicsBeginImageContextWithOptions(renderBounds.size, true, scaleFactor)
                 
                 if let context = UIGraphicsGetCurrentContext() {
                     context.scaleBy(x: renderScale, y: renderScale)
                     context.translateBy(x: -drawBounds.origin.x, y: -drawBounds.origin.y)
                     
                     UIColor.white.setFill()
-                    context.fill(drawBounds)
+                    context.fill(CGRect(origin: drawBounds.origin, size: renderBounds.size))
                     
                     for renderable in scene {
                         renderable.draw(context: context)
@@ -301,6 +302,8 @@ public class Canvas: UIView {
     // MARK - Touch handling
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
         guard mode == .draw else { return }
         
         if let location = touches.first?.location(in: self) {
@@ -311,6 +314,8 @@ public class Canvas: UIView {
     }
     
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        
         guard mode == .draw else { return }
         
         if let location = touches.first?.location(in: self), let stroke = stroke {
@@ -319,6 +324,8 @@ public class Canvas: UIView {
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
         guard mode == .draw else { return }
         
         stroke?.end()

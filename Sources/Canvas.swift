@@ -149,9 +149,12 @@ public class Canvas: UIView {
         
         if let bufferImage = bufferImage {
             bufferImage.draw(at: CGPoint.zero)
+        } else {
+            flatten()
+            bufferImage?.draw(at: CGPoint.zero)
         }
         
-        for renderable in scene {
+        for renderable in scene.suffix(from: flattenIndex) {
             renderable.draw(context: context)
         }
     }
@@ -227,17 +230,11 @@ public class Canvas: UIView {
             for renderable in renderables {
                 renderable.draw(context: context)
             }
-        } else {
-            print("Couldn't get context")
         }
         
         bufferImage =  UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         flattenIndex = scene.count
-        
-        if (bufferImage == nil) {
-            print("Couldn't create bufferImage")
-        }
     }
     
     private var drawBounds : CGRect {

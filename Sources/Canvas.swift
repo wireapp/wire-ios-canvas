@@ -147,11 +147,12 @@ public class Canvas: UIView {
     override public func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
+        if (flattenIndex == 0 && referenceObject != nil) {
+            flatten()
+        }
+        
         if let bufferImage = bufferImage {
             bufferImage.draw(at: CGPoint.zero)
-        } else {
-            flatten()
-            bufferImage?.draw(at: CGPoint.zero)
         }
         
         for renderable in scene.suffix(from: flattenIndex) {

@@ -213,7 +213,12 @@ public class Canvas: UIView {
     
     private func pickObject(at position: CGPoint) -> Editable? {
         let editables = scene.flatMap({ $0 as? Editable })
-        return editables.reversed().first(where: { $0.selectable && $0.bounds.contains(position) })
+        return editables.reversed().first(where: { editable in
+            guard editable.selectable else { return false }
+            let bounds = CGRect(origin: CGPoint.zero, size: editable.size)
+            let position = position.applying(editable.transform.inverted())
+            return bounds.contains(position)
+        })
     }
     
     private func unflatten() {

@@ -227,11 +227,17 @@ public class Canvas: UIView {
             for renderable in renderables {
                 renderable.draw(context: context)
             }
+        } else {
+            print("Couldn't get context")
         }
         
         bufferImage =  UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         flattenIndex = scene.count
+        
+        if (bufferImage == nil) {
+            print("Couldn't create bufferImage")
+        }
     }
     
     private var drawBounds : CGRect {

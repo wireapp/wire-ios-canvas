@@ -93,6 +93,7 @@ public class Canvas: UIView {
                 image.sizeToFit(inRect: bounds)
                 image.selectable = false
                 scene = [image]
+                unflatten()
                 referenceObject = image
                 delegate?.canvasDidChange(self)
                 setNeedsDisplay()
@@ -175,8 +176,7 @@ public class Canvas: UIView {
         guard !sceneExcludingReferenceObject.isEmpty else { return }
         
         if flattenIndex == scene.count {
-            bufferImage = nil
-            flattenIndex = 0
+            unflatten()
         } 
         
         scene.removeLast()
@@ -199,8 +199,7 @@ public class Canvas: UIView {
         if let index = scene.index(where: { $0 === newSelection }) {
             scene.remove(at: index)
             scene.append(newSelection)
-            flattenIndex = 0
-            bufferImage = nil
+            unflatten()
         }
         
         return selection
@@ -209,6 +208,11 @@ public class Canvas: UIView {
     private func pickObject(at position: CGPoint) -> Editable? {
         let editables = scene.flatMap({ $0 as? Editable })
         return editables.reversed().first(where: { $0.selectable && $0.bounds.contains(position) })
+    }
+    
+    private func unflatten() {
+        flattenIndex = 0
+        bufferImage = nil
     }
     
     private func flatten() {

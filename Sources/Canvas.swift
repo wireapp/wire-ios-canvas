@@ -133,6 +133,8 @@ public class Canvas: UIView {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
+        layer.drawsAsynchronously = true
+        
         configureGestureRecognizers()
     }
     

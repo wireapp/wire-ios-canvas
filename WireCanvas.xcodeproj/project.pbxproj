@@ -17,25 +17,9 @@
 		166390E51DC8EFC600D7BF1C /* unsplash_matterhorn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 166390DF1DC8EFB600D7BF1C /* unsplash_matterhorn.jpg */; };
 		166390E61DC8EFC600D7BF1C /* unsplash_small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 166390E01DC8EFB600D7BF1C /* unsplash_small.jpg */; };
 		166390E81DC8F08400D7BF1C /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166390E71DC8F08400D7BF1C /* TestHelper.swift */; };
-		166390E91DC8FE1C00D7BF1C /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 166390D81DC8E5EF00D7BF1C /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		166390E91DC8FE1C00D7BF1C /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 166390D81DC8E5EF00D7BF1C /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		16CB8A311DBA5B7300B5BC47 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CB8A301DBA5B7300B5BC47 /* Stroke.swift */; };
 		16CB8A331DBA5BB800B5BC47 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CB8A321DBA5BB800B5BC47 /* Image.swift */; };
-		16CB8A471DBA73B900B5BC47 /* WireCanvas-ios.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A361DBA73B900B5BC47 /* WireCanvas-ios.xcconfig */; };
-		16CB8A481DBA73B900B5BC47 /* WireCanvas.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A371DBA73B900B5BC47 /* WireCanvas.xcconfig */; };
-		16CB8A491DBA73B900B5BC47 /* version.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A381DBA73B900B5BC47 /* version.xcconfig */; };
-		16CB8A4A1DBA73B900B5BC47 /* ios-test-host.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A3A1DBA73B900B5BC47 /* ios-test-host.xcconfig */; };
-		16CB8A4B1DBA73B900B5BC47 /* ios-test-target.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A3B1DBA73B900B5BC47 /* ios-test-target.xcconfig */; };
-		16CB8A4C1DBA73B900B5BC47 /* ios.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A3C1DBA73B900B5BC47 /* ios.xcconfig */; };
-		16CB8A4D1DBA73B900B5BC47 /* osx-test-target.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A3D1DBA73B900B5BC47 /* osx-test-target.xcconfig */; };
-		16CB8A4E1DBA73B900B5BC47 /* osx.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A3E1DBA73B900B5BC47 /* osx.xcconfig */; };
-		16CB8A4F1DBA73B900B5BC47 /* project-common.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A3F1DBA73B900B5BC47 /* project-common.xcconfig */; };
-		16CB8A501DBA73B900B5BC47 /* project-debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A401DBA73B900B5BC47 /* project-debug.xcconfig */; };
-		16CB8A511DBA73B900B5BC47 /* project.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A411DBA73B900B5BC47 /* project.xcconfig */; };
-		16CB8A521DBA73B900B5BC47 /* simulator.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A421DBA73B900B5BC47 /* simulator.xcconfig */; };
-		16CB8A531DBA73B900B5BC47 /* swift.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A431DBA73B900B5BC47 /* swift.xcconfig */; };
-		16CB8A541DBA73B900B5BC47 /* tests.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A441DBA73B900B5BC47 /* tests.xcconfig */; };
-		16CB8A551DBA73B900B5BC47 /* warnings-debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A451DBA73B900B5BC47 /* warnings-debug.xcconfig */; };
-		16CB8A561DBA73B900B5BC47 /* warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A461DBA73B900B5BC47 /* warnings.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -274,7 +258,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Wire GmbH";
 				TargetAttributes = {
 					165EA0C21DB67C3B008ECC60 = {
@@ -311,22 +295,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16CB8A4F1DBA73B900B5BC47 /* project-common.xcconfig in Resources */,
-				16CB8A521DBA73B900B5BC47 /* simulator.xcconfig in Resources */,
-				16CB8A4A1DBA73B900B5BC47 /* ios-test-host.xcconfig in Resources */,
-				16CB8A491DBA73B900B5BC47 /* version.xcconfig in Resources */,
-				16CB8A4C1DBA73B900B5BC47 /* ios.xcconfig in Resources */,
-				16CB8A511DBA73B900B5BC47 /* project.xcconfig in Resources */,
-				16CB8A531DBA73B900B5BC47 /* swift.xcconfig in Resources */,
-				16CB8A4D1DBA73B900B5BC47 /* osx-test-target.xcconfig in Resources */,
-				16CB8A481DBA73B900B5BC47 /* WireCanvas.xcconfig in Resources */,
-				16CB8A561DBA73B900B5BC47 /* warnings.xcconfig in Resources */,
-				16CB8A501DBA73B900B5BC47 /* project-debug.xcconfig in Resources */,
-				16CB8A551DBA73B900B5BC47 /* warnings-debug.xcconfig in Resources */,
-				16CB8A4E1DBA73B900B5BC47 /* osx.xcconfig in Resources */,
-				16CB8A4B1DBA73B900B5BC47 /* ios-test-target.xcconfig in Resources */,
-				16CB8A541DBA73B900B5BC47 /* tests.xcconfig in Resources */,
-				16CB8A471DBA73B900B5BC47 /* WireCanvas-ios.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +360,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -445,6 +414,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -522,7 +492,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16CB8A3B1DBA73B900B5BC47 /* ios-test-target.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wire.CanvasTests;
@@ -535,7 +505,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16CB8A3B1DBA73B900B5BC47 /* ios-test-target.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wire.CanvasTests;

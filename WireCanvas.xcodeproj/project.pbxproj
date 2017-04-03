@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		165EA0CD1DB67C3B008ECC60 /* Canvas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165EA0C31DB67C3B008ECC60 /* Canvas.framework */; };
+		165EA0CD1DB67C3B008ECC60 /* WireCanvas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165EA0C31DB67C3B008ECC60 /* WireCanvas.framework */; };
 		165EA0D21DB67C3B008ECC60 /* CanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165EA0D11DB67C3B008ECC60 /* CanvasTests.swift */; };
 		165EA0D41DB67C3B008ECC60 /* Canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = 165EA0C61DB67C3B008ECC60 /* Canvas.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		165EA0DE1DB67C6C008ECC60 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165EA0DD1DB67C6C008ECC60 /* Canvas.swift */; };
@@ -20,8 +20,8 @@
 		166390E91DC8FE1C00D7BF1C /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 166390D81DC8E5EF00D7BF1C /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		16CB8A311DBA5B7300B5BC47 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CB8A301DBA5B7300B5BC47 /* Stroke.swift */; };
 		16CB8A331DBA5BB800B5BC47 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CB8A321DBA5BB800B5BC47 /* Image.swift */; };
-		16CB8A471DBA73B900B5BC47 /* Canvas-ios.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A361DBA73B900B5BC47 /* Canvas-ios.xcconfig */; };
-		16CB8A481DBA73B900B5BC47 /* Canvas.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A371DBA73B900B5BC47 /* Canvas.xcconfig */; };
+		16CB8A471DBA73B900B5BC47 /* WireCanvas-ios.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A361DBA73B900B5BC47 /* WireCanvas-ios.xcconfig */; };
+		16CB8A481DBA73B900B5BC47 /* WireCanvas.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A371DBA73B900B5BC47 /* WireCanvas.xcconfig */; };
 		16CB8A491DBA73B900B5BC47 /* version.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A381DBA73B900B5BC47 /* version.xcconfig */; };
 		16CB8A4A1DBA73B900B5BC47 /* ios-test-host.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A3A1DBA73B900B5BC47 /* ios-test-host.xcconfig */; };
 		16CB8A4B1DBA73B900B5BC47 /* ios-test-target.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 16CB8A3B1DBA73B900B5BC47 /* ios-test-target.xcconfig */; };
@@ -62,10 +62,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		165EA0C31DB67C3B008ECC60 /* Canvas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Canvas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		165EA0C31DB67C3B008ECC60 /* WireCanvas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WireCanvas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		165EA0C61DB67C3B008ECC60 /* Canvas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
 		165EA0C71DB67C3B008ECC60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		165EA0CC1DB67C3B008ECC60 /* CanvasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CanvasTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		165EA0CC1DB67C3B008ECC60 /* WireCanvasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WireCanvasTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		165EA0D11DB67C3B008ECC60 /* CanvasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTests.swift; sourceTree = "<group>"; };
 		165EA0D31DB67C3B008ECC60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		165EA0DD1DB67C6C008ECC60 /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
@@ -77,8 +77,8 @@
 		166390E71DC8F08400D7BF1C /* TestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		16CB8A301DBA5B7300B5BC47 /* Stroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stroke.swift; sourceTree = "<group>"; };
 		16CB8A321DBA5BB800B5BC47 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		16CB8A361DBA73B900B5BC47 /* Canvas-ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Canvas-ios.xcconfig"; sourceTree = "<group>"; };
-		16CB8A371DBA73B900B5BC47 /* Canvas.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Canvas.xcconfig; sourceTree = "<group>"; };
+		16CB8A361DBA73B900B5BC47 /* WireCanvas-ios.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "WireCanvas-ios.xcconfig"; sourceTree = "<group>"; };
+		16CB8A371DBA73B900B5BC47 /* WireCanvas.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = WireCanvas.xcconfig; sourceTree = "<group>"; };
 		16CB8A381DBA73B900B5BC47 /* version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = version.xcconfig; sourceTree = "<group>"; };
 		16CB8A3A1DBA73B900B5BC47 /* ios-test-host.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ios-test-host.xcconfig"; sourceTree = "<group>"; };
 		16CB8A3B1DBA73B900B5BC47 /* ios-test-target.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ios-test-target.xcconfig"; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				165EA0CD1DB67C3B008ECC60 /* Canvas.framework in Frameworks */,
+				165EA0CD1DB67C3B008ECC60 /* WireCanvas.framework in Frameworks */,
 				166390D91DC8E5EF00D7BF1C /* FBSnapshotTestCase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,8 +129,8 @@
 		165EA0C41DB67C3B008ECC60 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				165EA0C31DB67C3B008ECC60 /* Canvas.framework */,
-				165EA0CC1DB67C3B008ECC60 /* CanvasTests.xctest */,
+				165EA0C31DB67C3B008ECC60 /* WireCanvas.framework */,
+				165EA0CC1DB67C3B008ECC60 /* WireCanvasTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -188,8 +188,8 @@
 		16CB8A351DBA73B900B5BC47 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				16CB8A361DBA73B900B5BC47 /* Canvas-ios.xcconfig */,
-				16CB8A371DBA73B900B5BC47 /* Canvas.xcconfig */,
+				16CB8A361DBA73B900B5BC47 /* WireCanvas-ios.xcconfig */,
+				16CB8A371DBA73B900B5BC47 /* WireCanvas.xcconfig */,
 				16CB8A381DBA73B900B5BC47 /* version.xcconfig */,
 				16CB8A391DBA73B900B5BC47 /* wire-ios-xcconfig */,
 			);
@@ -230,9 +230,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		165EA0C21DB67C3B008ECC60 /* Canvas */ = {
+		165EA0C21DB67C3B008ECC60 /* WireCanvas */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 165EA0D71DB67C3B008ECC60 /* Build configuration list for PBXNativeTarget "Canvas" */;
+			buildConfigurationList = 165EA0D71DB67C3B008ECC60 /* Build configuration list for PBXNativeTarget "WireCanvas" */;
 			buildPhases = (
 				165EA0BE1DB67C3B008ECC60 /* Sources */,
 				165EA0BF1DB67C3B008ECC60 /* Frameworks */,
@@ -243,14 +243,14 @@
 			);
 			dependencies = (
 			);
-			name = Canvas;
+			name = WireCanvas;
 			productName = Canvas;
-			productReference = 165EA0C31DB67C3B008ECC60 /* Canvas.framework */;
+			productReference = 165EA0C31DB67C3B008ECC60 /* WireCanvas.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		165EA0CB1DB67C3B008ECC60 /* CanvasTests */ = {
+		165EA0CB1DB67C3B008ECC60 /* WireCanvasTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 165EA0DA1DB67C3B008ECC60 /* Build configuration list for PBXNativeTarget "CanvasTests" */;
+			buildConfigurationList = 165EA0DA1DB67C3B008ECC60 /* Build configuration list for PBXNativeTarget "WireCanvasTests" */;
 			buildPhases = (
 				165EA0C81DB67C3B008ECC60 /* Sources */,
 				165EA0C91DB67C3B008ECC60 /* Frameworks */,
@@ -262,9 +262,9 @@
 			dependencies = (
 				165EA0CF1DB67C3B008ECC60 /* PBXTargetDependency */,
 			);
-			name = CanvasTests;
+			name = WireCanvasTests;
 			productName = CanvasTests;
-			productReference = 165EA0CC1DB67C3B008ECC60 /* CanvasTests.xctest */;
+			productReference = 165EA0CC1DB67C3B008ECC60 /* WireCanvasTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -288,7 +288,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 165EA0BD1DB67C3B008ECC60 /* Build configuration list for PBXProject "Canvas" */;
+			buildConfigurationList = 165EA0BD1DB67C3B008ECC60 /* Build configuration list for PBXProject "WireCanvas" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -300,8 +300,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				165EA0C21DB67C3B008ECC60 /* Canvas */,
-				165EA0CB1DB67C3B008ECC60 /* CanvasTests */,
+				165EA0C21DB67C3B008ECC60 /* WireCanvas */,
+				165EA0CB1DB67C3B008ECC60 /* WireCanvasTests */,
 			);
 		};
 /* End PBXProject section */
@@ -319,14 +319,14 @@
 				16CB8A511DBA73B900B5BC47 /* project.xcconfig in Resources */,
 				16CB8A531DBA73B900B5BC47 /* swift.xcconfig in Resources */,
 				16CB8A4D1DBA73B900B5BC47 /* osx-test-target.xcconfig in Resources */,
-				16CB8A481DBA73B900B5BC47 /* Canvas.xcconfig in Resources */,
+				16CB8A481DBA73B900B5BC47 /* WireCanvas.xcconfig in Resources */,
 				16CB8A561DBA73B900B5BC47 /* warnings.xcconfig in Resources */,
 				16CB8A501DBA73B900B5BC47 /* project-debug.xcconfig in Resources */,
 				16CB8A551DBA73B900B5BC47 /* warnings-debug.xcconfig in Resources */,
 				16CB8A4E1DBA73B900B5BC47 /* osx.xcconfig in Resources */,
 				16CB8A4B1DBA73B900B5BC47 /* ios-test-target.xcconfig in Resources */,
 				16CB8A541DBA73B900B5BC47 /* tests.xcconfig in Resources */,
-				16CB8A471DBA73B900B5BC47 /* Canvas-ios.xcconfig in Resources */,
+				16CB8A471DBA73B900B5BC47 /* WireCanvas-ios.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +368,7 @@
 /* Begin PBXTargetDependency section */
 		165EA0CF1DB67C3B008ECC60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 165EA0C21DB67C3B008ECC60 /* Canvas */;
+			target = 165EA0C21DB67C3B008ECC60 /* WireCanvas */;
 			targetProxy = 165EA0CE1DB67C3B008ECC60 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -475,7 +475,7 @@
 		};
 		165EA0D81DB67C3B008ECC60 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16CB8A361DBA73B900B5BC47 /* Canvas-ios.xcconfig */;
+			baseConfigurationReference = 16CB8A361DBA73B900B5BC47 /* WireCanvas-ios.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -498,7 +498,7 @@
 		};
 		165EA0D91DB67C3B008ECC60 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16CB8A361DBA73B900B5BC47 /* Canvas-ios.xcconfig */;
+			baseConfigurationReference = 16CB8A361DBA73B900B5BC47 /* WireCanvas-ios.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -547,7 +547,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		165EA0BD1DB67C3B008ECC60 /* Build configuration list for PBXProject "Canvas" */ = {
+		165EA0BD1DB67C3B008ECC60 /* Build configuration list for PBXProject "WireCanvas" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				165EA0D51DB67C3B008ECC60 /* Debug */,
@@ -556,7 +556,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		165EA0D71DB67C3B008ECC60 /* Build configuration list for PBXNativeTarget "Canvas" */ = {
+		165EA0D71DB67C3B008ECC60 /* Build configuration list for PBXNativeTarget "WireCanvas" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				165EA0D81DB67C3B008ECC60 /* Debug */,
@@ -565,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		165EA0DA1DB67C3B008ECC60 /* Build configuration list for PBXNativeTarget "CanvasTests" */ = {
+		165EA0DA1DB67C3B008ECC60 /* Build configuration list for PBXNativeTarget "WireCanvasTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				165EA0DB1DB67C3B008ECC60 /* Debug */,

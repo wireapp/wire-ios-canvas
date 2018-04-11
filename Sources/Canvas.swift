@@ -190,8 +190,10 @@ public class Canvas: UIView {
         delegate?.canvasDidChange(self)
     }
     
-    func insert(brush: Brush, at position: CGPoint) -> Stroke {
-        let stroke = Stroke(at: position, brush: brush)
+    func insert(brush: Brush, with initialTouch: UITouch) -> Stroke {
+        let point = preciseLocation(of: initialTouch)
+        let initialSample = StrokeSample(point: point, touch: initialTouch)
+        let stroke = Stroke(with: initialSample, brush: brush)
         scene.append(stroke)
         delegate?.canvasDidChange(self)
         return stroke
@@ -349,22 +351,26 @@ public class Canvas: UIView {
         super.touchesBegan(touches, with: event)
         
         guard mode == .draw else { return }
-        
-        if let location = touches.first?.location(in: self) {
-            let stroke = insert(brush: brush, at: location)
-            setNeedsDisplay(stroke.bounds)
-            self.stroke = stroke
-        }
+        guard let firstTouch = touches.first else { return }
+
+        let stroke = insert(brush: brush, with: firstTouch)
+        setNeedsDisplay(stroke.bounds)
+        self.stroke = stroke
+
     }
     
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
-        
+
         guard mode == .draw else { return }
-        
-        if let location = touches.first?.location(in: self), let stroke = stroke {
-            setNeedsDisplay(stroke.move(to: location))
-        }
+        guard let firstTouch = touches.first else { return }
+
+        let touches = event?.coalescedTouches(for: firstTouch) ?? [firstTouch]
+        let updatedRect = addStrokeSamples(for: touches)
+
+
+        setNeedsDisplay()
+
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -375,6 +381,25 @@ public class Canvas: UIView {
         stroke?.end()
         flatten()
         setNeedsDisplay()
+    }
+
+    private func addStrokeSamples(for touches: [UITouch]) -> CGRect {
+
+        let samples: [StrokeSample] = touches.map { touch in
+            let location = preciseLocation(of: touch)
+            return StrokeSample(point: location, touch: touch)
+        }
+
+        return stroke?.addSamples(samples) ?? .zero
+
+    }
+
+    private func preciseLocation(of touch: UITouch) -> CGPoint {
+        if #available(iOS 9.1, *) {
+            return touch.preciseLocation(in: self)
+        } else {
+            return touch.location(in: self)
+        }
     }
 
 }

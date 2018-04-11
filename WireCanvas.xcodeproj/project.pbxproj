@@ -20,6 +20,7 @@
 		166390E91DC8FE1C00D7BF1C /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 166390D81DC8E5EF00D7BF1C /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		16CB8A311DBA5B7300B5BC47 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CB8A301DBA5B7300B5BC47 /* Stroke.swift */; };
 		16CB8A331DBA5BB800B5BC47 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CB8A321DBA5BB800B5BC47 /* Image.swift */; };
+		5E9F24A7207E572E005BED98 /* StrokeSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F24A6207E572E005BED98 /* StrokeSample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		16CB8A441DBA73B900B5BC47 /* tests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = tests.xcconfig; sourceTree = "<group>"; };
 		16CB8A451DBA73B900B5BC47 /* warnings-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "warnings-debug.xcconfig"; sourceTree = "<group>"; };
 		16CB8A461DBA73B900B5BC47 /* warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = warnings.xcconfig; sourceTree = "<group>"; };
+		5E9F24A6207E572E005BED98 /* StrokeSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			children = (
 				165EA0DD1DB67C6C008ECC60 /* Canvas.swift */,
 				16CB8A301DBA5B7300B5BC47 /* Stroke.swift */,
+				5E9F24A6207E572E005BED98 /* StrokeSample.swift */,
 				16CB8A321DBA5BB800B5BC47 /* Image.swift */,
 				1660DC651DBF8516009E360D /* UIImage+Trimmed.swift */,
 				165EA0C61DB67C3B008ECC60 /* Canvas.h */,
@@ -311,6 +314,7 @@
 				16CB8A331DBA5BB800B5BC47 /* Image.swift in Sources */,
 				1660DC661DBF8516009E360D /* UIImage+Trimmed.swift in Sources */,
 				16CB8A311DBA5B7300B5BC47 /* Stroke.swift in Sources */,
+				5E9F24A7207E572E005BED98 /* StrokeSample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

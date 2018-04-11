@@ -41,8 +41,7 @@ public struct Brush {
 
 class Stroke : Renderable {
     
-    private var points : [CGPoint]
-    private let minimumStrokeDistance = 0.1
+    private var samples: [StrokeSample]
     private let brush : Brush
     
     var bounds: CGRect {
@@ -51,55 +50,72 @@ class Stroke : Renderable {
         }
     }
     
-    public init(at position: CGPoint, brush: Brush) {
+    init(with initialSample: StrokeSample, brush: Brush) {
         self.brush = brush
-        self.points = [position]
+        self.samples = [initialSample]
     }
-    
-    func move(to point: CGPoint) -> CGRect {
-        guard distance(to: point) > minimumStrokeDistance else { return CGRect.zero }
-        
-        points.append(smooth(point: point))
-        
-        return bounds(from: max(points.count - 3, 0)) // Need to update last two segments
+
+    func addSamples(_ newSamples: [StrokeSample]) -> CGRect {
+        samples.append(contentsOf: newSamples)//.map(smooth))
+        return bounds(from: max(samples.count - newSamples.count, 0))
     }
-    
+
     func end() {
         
     }
     
     func draw(context : CGContext) {
-        if points.count == 1, let point = points.first {
-            context.setFillColor(brush.color.cgColor)
-            let origin = CGPoint(x: point.x - CGFloat(brush.size / 2), y: point.y - CGFloat(brush.size / 2))
-            context.addEllipse(in: CGRect(origin: origin, size: CGSize(width: Double(brush.size), height: Double(brush.size))))
+
+        context.setFillColor(brush.color.cgColor)
+        context.setStrokeColor(brush.color.cgColor)
+
+        guard samples.count > 1 else {
+            let sample = samples[0]
+            let point = sample.point
+            let size = width(for: sample)
+
+            let origin = CGPoint(x: point.x - CGFloat(size / 2), y: point.y - CGFloat(size / 2))
+            context.addEllipse(in: CGRect(origin: origin, size: CGSize(width: Double(size), height: Double(size))))
             context.fillPath()
-        } else {
-            context.setStrokeColor(brush.color.cgColor)
-            let path = interpolateBeizerPath(points: points)
-            path.lineWidth = CGFloat(brush.size)
-            path.lineCapStyle = .round
-            path.stroke()
+
+            return
         }
+
+        var previousPoint = samples[0].point
+
+        for sample in samples.suffix(from: 1) {
+
+            let location = sample.point
+
+            let path = UIBezierPath()
+            path.lineWidth = width(for: sample)
+            path.lineCapStyle = .round
+
+            path.move(to: previousPoint)
+            path.addLine(to: location)
+            path.stroke()
+
+            previousPoint = location
+
+        }
+
     }
-    
-    func distance(to point: CGPoint) -> Double {
-        let lastPoint = points.last!
-        let translation = CGPoint(x: point.x - lastPoint.x, y: point.y - lastPoint.y)
-        return sqrt(Double(translation.x * translation.x + translation.y * translation.y))
+
+    func width(for sample: StrokeSample) -> CGFloat {
+        return CGFloat(brush.size) * sample.brushFactor
     }
-    
+
     func bounds(from index: Int) -> CGRect {
         var minX = Double.infinity
         var minY = Double.infinity
         var maxX = -Double.infinity
         var maxY = -Double.infinity
         
-        for point in points.suffix(from: index) {
-            minX = min(Double(point.x), minX)
-            minY = min(Double(point.y), minY)
-            maxX = max(Double(point.x), maxX)
-            maxY = max(Double(point.y), maxY)
+        for sample in samples.suffix(from: index) {
+            minX = min(Double(sample.point.x), minX)
+            minY = min(Double(sample.point.y), minY)
+            maxX = max(Double(sample.point.x), maxX)
+            maxY = max(Double(sample.point.y), maxY)
         }
         
         let outset = CGFloat(-brush.size)
@@ -116,11 +132,17 @@ class Stroke : Renderable {
         
         return path
     }
-    
-    func smooth(point: CGPoint, factor: CGFloat = 0.35) -> CGPoint {
-        let previous = points.last!
-        return CGPoint(x: previous.x * (1 - factor) + point.x * factor,
-                       y: previous.y * (1 - factor) + point.y * factor)
+
+    func smooth(_ sample: StrokeSample) -> StrokeSample {
+        return smooth(sample, factor: 0.35)
+    }
+
+    func smooth(_ sample: StrokeSample, factor: CGFloat) -> StrokeSample {
+        let previous = samples.last!.point
+        let point = sample.point
+        let smoothedPosition = CGPoint(x: previous.x * (1 - factor) + point.x * factor,
+                                       y: previous.y * (1 - factor) + point.y * factor)
+        return sample.moving(to: smoothedPosition)
     }
     
     func interpolateBeizerPath(points: [CGPoint]) -> UIBezierPath {

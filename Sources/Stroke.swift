@@ -42,32 +42,49 @@ public struct Brush {
 class Stroke : Renderable {
     
     private var samples: [StrokeSample]
+
     private let brush : Brush
     private let isPencilBased: Bool
-    private let shouldDrawInSingleStroke: Bool
-    
+    private let enableForce: Bool
+
+    init(with initialSample: StrokeSample, brush: Brush, enableForce: Bool) {
+        self.brush = brush
+        self.samples = [initialSample]
+        self.isPencilBased = initialSample.isPencilBased
+        self.enableForce = (enableForce || initialSample.isPencilBased)
+    }
+
+    // MARK: - Managing Samples
+
+    func addSamples(_ newSamples: [StrokeSample]) -> CGRect {
+        newSamples.forEach(smoothIfNeeded)
+        samples.append(contentsOf: newSamples)
+        return bounds(from: max(samples.count - newSamples.count - 2, 0))
+    }
+
+    func updateSample(for touch: UITouch) -> CGRect {
+
+        guard #available(iOS 9.1, *) else {
+            return .zero
+        }
+
+        guard let sampleIndex = samples.index(where: { $0.updateIndex == touch.estimationUpdateIndex }) else {
+            return .zero
+        }
+
+        samples[sampleIndex].update(with: touch)
+        return bounds(from: max(sampleIndex - 2, 0))
+
+    }
+
+    // MARK: - Renderable
+
     var bounds: CGRect {
         get {
             return bounds(from: 0)
         }
     }
-    
-    init(with initialSample: StrokeSample, brush: Brush) {
-        self.brush = brush
-        self.samples = [initialSample]
-        self.isPencilBased = initialSample.isPencilBased
-        self.shouldDrawInSingleStroke = initialSample.forceValue == 0
-    }
 
-    func addSamples(_ newSamples: [StrokeSample]) -> CGRect {
-        samples.append(contentsOf: newSamples.map(smooth))
-        return bounds(from: max(samples.count - newSamples.count, 0))
-    }
-
-    func end() {
-        
-    }
-    
     func draw(context : CGContext) {
 
         context.setFillColor(brush.color.cgColor)
@@ -92,43 +109,79 @@ class Stroke : Renderable {
         var previousPoint = samples[0].point
         let controlPoints = self.calculateControlsPoints()
 
-        if shouldDrawInSingleStroke {
-
-            print("Drawing without force")
+        guard enableForce else {
             let path = interpolateBezierPath(controlPoints: controlPoints)
             path.stroke()
+            return
+        }
 
-        } else {
+        for i in 1..<samples.count {
 
-            print("Drawing with force")
+            let sample = samples[i]
+            let location = sample.point
 
-            for i in 1..<samples.count {
+            let path = UIBezierPath()
+            path.lineWidth = lineWidth(at: i)
+            path.lineCapStyle = .round
 
-                let sample = samples[i]
-                let location = sample.point
+            path.move(to: previousPoint)
 
-                let path = UIBezierPath()
-                path.lineWidth = lineWidth(at: i)
-                path.lineCapStyle = .round
+            if isPencilBased {
+//                path.addLine(to: location)
+                path.addCurve(to: samples[i].point, controlPoint1: controlPoints[i-1].1, controlPoint2: controlPoints[i].0)
 
-                path.move(to: previousPoint)
-
-                if isPencilBased {
-                    path.addLine(to: location)
-                } else {
-                    path.addCurve(to: samples[i].point, controlPoint1: controlPoints[i-1].1, controlPoint2: controlPoints[i].0)
-                }
-
-                path.stroke()
-                previousPoint = location
-
+            } else {
+                path.addCurve(to: samples[i].point, controlPoint1: controlPoints[i-1].1, controlPoint2: controlPoints[i].0)
             }
+
+            path.stroke()
+            previousPoint = location
 
         }
 
     }
 
-    func lineWidth(at index: Int) -> CGFloat {
+    func end() {
+        // no-op
+    }
+
+    // MARK: - Calculations
+
+    private func smoothIfNeeded(_ sample: StrokeSample) {
+
+        let factor: CGFloat = 0.35
+
+        guard sample.isPencilBased == false else {
+            return
+        }
+
+        let previous = samples.last!.point
+        let point = sample.point
+        let smoothedPosition = CGPoint(x: previous.x * (1 - factor) + point.x * factor,
+                                       y: previous.y * (1 - factor) + point.y * factor)
+
+        sample.move(to: smoothedPosition)
+
+    }
+
+    private func bounds(from index: Int) -> CGRect {
+        var minX = Double.infinity
+        var minY = Double.infinity
+        var maxX = -Double.infinity
+        var maxY = -Double.infinity
+
+        for sample in samples.suffix(from: index) {
+            minX = min(Double(sample.point.x), minX)
+            minY = min(Double(sample.point.y), minY)
+            maxX = max(Double(sample.point.x), maxX)
+            maxY = max(Double(sample.point.y), maxY)
+        }
+
+        let outset = CGFloat(-brush.size)
+        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY).insetBy(dx: outset, dy: outset)
+    }
+
+    private func lineWidth(at index: Int) -> CGFloat {
 
         let currentSample = samples[index]
         let nextSample = (index + 1) < samples.endIndex ? samples[index + 1] : currentSample
@@ -140,24 +193,7 @@ class Stroke : Renderable {
 
     }
 
-    func bounds(from index: Int) -> CGRect {
-        var minX = Double.infinity
-        var minY = Double.infinity
-        var maxX = -Double.infinity
-        var maxY = -Double.infinity
-        
-        for sample in samples.suffix(from: index) {
-            minX = min(Double(sample.point.x), minX)
-            minY = min(Double(sample.point.y), minY)
-            maxX = max(Double(sample.point.x), maxX)
-            maxY = max(Double(sample.point.y), maxY)
-        }
-        
-        let outset = CGFloat(-brush.size)
-        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY).insetBy(dx: outset, dy: outset)
-    }
-    
-    func interpolateBezierPath(controlPoints: [(CGPoint, CGPoint)]) -> UIBezierPath {
+    private func interpolateBezierPath(controlPoints: [(CGPoint, CGPoint)]) -> UIBezierPath {
         let path = UIBezierPath()
         path.move(to: samples.first!.point)
         path.lineWidth = CGFloat(brush.size)
@@ -170,24 +206,7 @@ class Stroke : Renderable {
         return path
     }
 
-    func smooth(_ sample: StrokeSample) -> StrokeSample {
-        return smooth(sample, factor: 0.35)
-    }
-
-    func smooth(_ sample: StrokeSample, factor: CGFloat) -> StrokeSample {
-
-        guard sample.isPencilBased == false else {
-            return sample
-        }
-
-        let previous = samples.last!.point
-        let point = sample.point
-        let smoothedPosition = CGPoint(x: previous.x * (1 - factor) + point.x * factor,
-                                       y: previous.y * (1 - factor) + point.y * factor)
-        return sample.moving(to: smoothedPosition)
-    }
-
-    func calculateControlsPoints() -> [(CGPoint, CGPoint)] {
+    private func calculateControlsPoints() -> [(CGPoint, CGPoint)] {
         
         let points = [samples.first!.point] + samples.map { $0.point } + [samples.last!.point]
         var controlPoints : [(CGPoint, CGPoint)] = []

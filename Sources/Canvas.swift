@@ -193,9 +193,12 @@ public class Canvas: UIView {
     func insert(brush: Brush, with initialTouch: UITouch) -> Stroke {
         let point = preciseLocation(of: initialTouch)
         let initialSample = StrokeSample(point: point, touch: initialTouch)
-        let stroke = Stroke(with: initialSample, brush: brush)
+        let enableForce = traitCollection.forceTouchCapability == .available
+
+        let stroke = Stroke(with: initialSample, brush: brush, enableForce: enableForce)
         scene.append(stroke)
         delegate?.canvasDidChange(self)
+
         return stroke
     }
     
@@ -368,8 +371,7 @@ public class Canvas: UIView {
         let touches = event?.coalescedTouches(for: firstTouch) ?? [firstTouch]
         let updatedRect = addStrokeSamples(for: touches)
 
-
-        setNeedsDisplay()
+        setNeedsDisplay(updatedRect)
 
     }
     
@@ -381,6 +383,16 @@ public class Canvas: UIView {
         stroke?.end()
         flatten()
         setNeedsDisplay()
+    }
+
+    @available(iOS 9.1, *)
+    public override func touchesEstimatedPropertiesUpdated(_ touches: Set<UITouch>) {
+        super.touchesEstimatedPropertiesUpdated(touches)
+
+        for touch in touches {
+            (stroke?.updateSample(for: touch)).flatMap(setNeedsDisplay)
+        }
+
     }
 
     private func addStrokeSamples(for touches: [UITouch]) -> CGRect {

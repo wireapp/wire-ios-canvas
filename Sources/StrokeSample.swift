@@ -20,18 +20,32 @@ import UIKit
 
 class StrokeSample {
 
-    let point: CGPoint
-    let brushFactor: CGFloat
-    let forceValue: CGFloat
-    let isPencilBased: Bool
+    private(set) var point: CGPoint
+    private(set) var updateIndex: NSNumber?
+
+    private(set) var isPencilBased: Bool!
+    private(set) var forceValue: CGFloat!
+    private(set) var brushFactor: CGFloat!
+
+    // MARK: - Initialization
 
     init(point: CGPoint, touch: UITouch) {
-
         self.point = point
+        self.update(with: touch)
+    }
+
+    // MARK: - Changing the Data
+
+    func move(to newLocation: CGPoint) {
+        self.point = newLocation
+    }
+
+    func update(with touch: UITouch) {
 
         if #available(iOS 9.1, *) {
-            self.forceValue = touch.force / sin(touch.altitudeAngle)
+            self.updateIndex = touch.estimationUpdateIndex
             self.isPencilBased = (touch.type == .stylus)
+            self.forceValue = touch.force / sin(touch.altitudeAngle)
             self.brushFactor = (forceValue == 0) ? 1 : forceValue / 5
         } else {
             self.brushFactor = 1
@@ -39,18 +53,6 @@ class StrokeSample {
             self.forceValue = touch.force
         }
 
-
-    }
-
-    private init(point: CGPoint, brushFactor: CGFloat, forceValue: CGFloat, isPencilBased: Bool) {
-        self.point = point
-        self.brushFactor = brushFactor
-        self.forceValue = forceValue
-        self.isPencilBased = isPencilBased
-    }
-
-    func moving(to newLocation: CGPoint) -> StrokeSample {
-        return StrokeSample(point: newLocation, brushFactor: self.brushFactor, forceValue: forceValue, isPencilBased: self.isPencilBased)
     }
 
 }

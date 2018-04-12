@@ -22,27 +22,35 @@ class StrokeSample {
 
     let point: CGPoint
     let brushFactor: CGFloat
+    let forceValue: CGFloat
+    let isPencilBased: Bool
 
     init(point: CGPoint, touch: UITouch) {
 
         self.point = point
 
         if #available(iOS 9.1, *) {
-            let perpendicularForce = touch.force / sin(touch.altitudeAngle)
-            self.brushFactor = (perpendicularForce == 0) ? 1 : perpendicularForce / 5
+            self.forceValue = touch.force / sin(touch.altitudeAngle)
+            self.isPencilBased = (touch.type == .stylus)
+            self.brushFactor = (forceValue == 0) ? 1 : forceValue / 5
         } else {
             self.brushFactor = 1
+            self.isPencilBased = false
+            self.forceValue = touch.force
         }
+
 
     }
 
-    private init(point: CGPoint, brushFactor: CGFloat) {
+    private init(point: CGPoint, brushFactor: CGFloat, forceValue: CGFloat, isPencilBased: Bool) {
         self.point = point
         self.brushFactor = brushFactor
+        self.forceValue = forceValue
+        self.isPencilBased = isPencilBased
     }
 
     func moving(to newLocation: CGPoint) -> StrokeSample {
-        return StrokeSample(point: newLocation, brushFactor: self.brushFactor)
+        return StrokeSample(point: newLocation, brushFactor: self.brushFactor, forceValue: forceValue, isPencilBased: self.isPencilBased)
     }
 
 }

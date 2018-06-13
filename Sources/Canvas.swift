@@ -197,7 +197,7 @@ public class Canvas: UIView {
         return stroke
     }
     
-    public func undo() {
+    @objc public func undo() {
         guard !sceneExcludingReferenceObject.isEmpty else { return }
         
         if flattenIndex == scene.count {

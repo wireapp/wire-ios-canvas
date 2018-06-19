@@ -1,4 +1,7 @@
 pipeline {
+    agent { 
+        label 'frameworks'
+    }
     triggers {
         issueCommentTrigger('.*@zenkins release minor.*')
     }

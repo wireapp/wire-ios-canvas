@@ -269,11 +269,11 @@
 			};
 			buildConfigurationList = 165EA0BD1DB67C3B008ECC60 /* Build configuration list for PBXProject "WireCanvas" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 165EA0B91DB67C3B008ECC60;
 			productRefGroup = 165EA0C41DB67C3B008ECC60 /* Products */;

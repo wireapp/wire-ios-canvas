@@ -69,7 +69,6 @@
 		16CB8A3F1DBA73B900B5BC47 /* project-common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "project-common.xcconfig"; sourceTree = "<group>"; };
 		16CB8A401DBA73B900B5BC47 /* project-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "project-debug.xcconfig"; sourceTree = "<group>"; };
 		16CB8A411DBA73B900B5BC47 /* project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
-		16CB8A431DBA73B900B5BC47 /* swift.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = swift.xcconfig; sourceTree = "<group>"; };
 		16CB8A441DBA73B900B5BC47 /* tests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = tests.xcconfig; sourceTree = "<group>"; };
 		16CB8A451DBA73B900B5BC47 /* warnings-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "warnings-debug.xcconfig"; sourceTree = "<group>"; };
 		16CB8A461DBA73B900B5BC47 /* warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = warnings.xcconfig; sourceTree = "<group>"; };
@@ -184,7 +183,6 @@
 				16CB8A3F1DBA73B900B5BC47 /* project-common.xcconfig */,
 				16CB8A401DBA73B900B5BC47 /* project-debug.xcconfig */,
 				16CB8A411DBA73B900B5BC47 /* project.xcconfig */,
-				16CB8A431DBA73B900B5BC47 /* swift.xcconfig */,
 				16CB8A441DBA73B900B5BC47 /* tests.xcconfig */,
 				16CB8A451DBA73B900B5BC47 /* warnings-debug.xcconfig */,
 				16CB8A461DBA73B900B5BC47 /* warnings.xcconfig */,

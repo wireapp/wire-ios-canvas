@@ -64,11 +64,18 @@ public protocol CanvasDelegate {
     
 }
 
-public class Canvas: UIView {
+public final class Canvas: UIView {
     
     fileprivate let minimumScale : CGFloat = 0.5
     fileprivate let maximumScale : CGFloat = 10.0
     
+    
+    /// closure to run in touchesBegan()'s first line
+    public var touchWillBegin: (() -> ())?
+
+    /// closure to run in touchesEnded()'s first line
+    public var touchWillEnd: (() -> ())?
+
     public var delegate : CanvasDelegate? = nil
     
     /// Defines the apperance of the brush strokes when drawing
@@ -346,6 +353,8 @@ public class Canvas: UIView {
     // MARK - Touch handling
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchWillBegin?()
+
         super.touchesBegan(touches, with: event)
         
         guard mode == .draw else { return }
@@ -368,6 +377,8 @@ public class Canvas: UIView {
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchWillEnd?()
+        
         super.touchesEnded(touches, with: event)
         
         guard mode == .draw else { return }

@@ -354,6 +354,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16CB8A371DBA73B900B5BC47 /* WireCanvas.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = arm64;
 				INFOPLIST_FILE = Sources/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wire.Canvas;
 			};
@@ -363,6 +364,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16CB8A371DBA73B900B5BC47 /* WireCanvas.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = arm64;
 				INFOPLIST_FILE = Sources/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wire.Canvas;
 			};
@@ -372,6 +374,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16CB8A3B1DBA73B900B5BC47 /* ios-test-target.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = arm64;
 				INFOPLIST_FILE = Tests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wire.CanvasTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -383,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16CB8A3B1DBA73B900B5BC47 /* ios-test-target.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = arm64;
 				INFOPLIST_FILE = Tests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wire.CanvasTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

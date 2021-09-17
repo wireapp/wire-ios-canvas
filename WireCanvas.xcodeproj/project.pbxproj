@@ -340,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16CB8A401DBA73B900B5BC47 /* project-debug.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = arm64;
 			};
 			name = Debug;
 		};
@@ -347,6 +348,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16CB8A411DBA73B900B5BC47 /* project.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = arm64;
 			};
 			name = Release;
 		};

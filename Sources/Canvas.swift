@@ -25,11 +25,11 @@ public enum EditingMode {
 }
 
 protocol Renderable: AnyObject {
-    
+
     var bounds: CGRect { get }
-    
-    func draw(context : CGContext)
-    
+
+    func draw(context: CGContext)
+
 }
 
 protocol Editable: Renderable {

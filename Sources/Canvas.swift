@@ -24,12 +24,12 @@ public enum EditingMode {
     case edit
 }
 
-protocol Renderable: class {
-
+protocol Renderable: AnyObject {
+    
     var bounds: CGRect { get }
-
-    func draw(context: CGContext)
-
+    
+    func draw(context : CGContext)
+    
 }
 
 protocol Editable: Renderable {

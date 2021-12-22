@@ -42,15 +42,11 @@ class Image: Editable {
     var imageView = UIImageView()
 
     var size: CGSize {
-        get {
-            return image.size
-        }
+        return image.size
     }
 
     var bounds: CGRect {
-        get {
-            return CGRect(x: 0, y: 0, width: size.width, height: size.height).applying(transform)
-        }
+        return CGRect(x: 0, y: 0, width: size.width, height: size.height).applying(transform)
     }
 
     var selectedView: UIView {
@@ -80,7 +76,6 @@ class Image: Editable {
     }
 
     var transform: CGAffineTransform {
-        get {
             let center = CGPoint(x: size.width / 2, y: size.height / 2)
             let toCenter = CGAffineTransform(translationX: -center.x, y: -center.y)
             let restoreCenter = CGAffineTransform(translationX: center.x, y: center.y)
@@ -89,7 +84,6 @@ class Image: Editable {
             let translate = CGAffineTransform(translationX: position.x, y: position.y)
 
             return toCenter.concatenating(scaleTransform).concatenating(rotationTransform).concatenating(restoreCenter).concatenating(translate)
-        }
     }
 
     func sizeToFit(inRect rect: CGRect) {

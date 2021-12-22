@@ -46,9 +46,7 @@ class Stroke: Renderable {
     private let brush: Brush
 
     var bounds: CGRect {
-        get {
-            return bounds(from: 0)
-        }
+        return bounds(from: 0)
     }
 
     public init(at position: CGPoint, brush: Brush) {

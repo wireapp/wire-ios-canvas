@@ -51,9 +51,7 @@ struct Orientation {
     var rotation: CGFloat
 
     static var standard: Orientation {
-        get {
-            return Orientation(scale: 1, position: CGPoint.zero, rotation: 0)
-        }
+        return Orientation(scale: 1, position: CGPoint.zero, rotation: 0)
     }
 }
 
@@ -274,7 +272,6 @@ public class Canvas: UIView {
     }
 
     private var drawBounds: CGRect {
-        get {
             var bounds = scene.first?.bounds ?? CGRect.zero
 
             for renderable in scene.suffix(from: 1) {
@@ -282,12 +279,10 @@ public class Canvas: UIView {
             }
 
             return bounds
-        }
     }
 
     /// Return an image of the canvas content.
     public var trimmedImage: UIImage? {
-        get {
             let scaleFactor: CGFloat = 2.0 // We want to render with 2x scale factor also on non-retina devices
             var image: UIImage?
             selection?.selected = false
@@ -339,7 +334,6 @@ public class Canvas: UIView {
             }
 
             return image
-        }
     }
 
     public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

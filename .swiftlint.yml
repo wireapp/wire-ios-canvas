@@ -15,9 +15,7 @@ disabled_rules:
     - cyclomatic_complexity
     - closure_parameter_position
     - statement_position
-    - weak_delegate
     - inclusive_language
-    - class_delegate_protocol
     - legacy_cggeometry_functions
     - legacy_constructor
     - legacy_hashing

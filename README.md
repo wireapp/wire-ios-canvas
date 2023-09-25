@@ -15,3 +15,5 @@ For licensing information, see the attached LICENSE file and the list of third-p
 Canvas is a component for painting and composing pictures.
 
 This framework is part of Wire iOS app. Visit [iOS  repository](http://github.com/wireapp/wire-ios) for an overview of the architecture. 
+
+⚠️ **This repository is now part of [wire-ios-mono](https://github.com/wireapp/wire-ios-mono)**
